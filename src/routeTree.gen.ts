@@ -10,14 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuddyRouteImport } from './routes/buddy'
 import { Route as FlashcardsRouteImport } from './routes/flashcards'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as MistakesRouteImport } from './routes/mistakes'
+import { Route as PlannerRouteImport } from './routes/planner'
 import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as ReadinessRouteImport } from './routes/readiness'
+import { Route as SettingsRouteImport } from './routes/settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuddyRoute = BuddyRouteImport.update({
+  id: '/buddy',
+  path: '/buddy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FlashcardsRoute = FlashcardsRouteImport.update({
@@ -35,48 +44,107 @@ const MistakesRoute = MistakesRouteImport.update({
   path: '/mistakes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlannerRoute = PlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
   path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReadinessRoute = ReadinessRouteImport.update({
+  id: '/readiness',
+  path: '/readiness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/buddy': typeof BuddyRoute
   '/flashcards': typeof FlashcardsRoute
   '/learn': typeof LearnRoute
   '/mistakes': typeof MistakesRoute
+  '/planner': typeof PlannerRoute
   '/quiz': typeof QuizRoute
+  '/readiness': typeof ReadinessRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/buddy': typeof BuddyRoute
   '/flashcards': typeof FlashcardsRoute
   '/learn': typeof LearnRoute
   '/mistakes': typeof MistakesRoute
+  '/planner': typeof PlannerRoute
   '/quiz': typeof QuizRoute
+  '/readiness': typeof ReadinessRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/buddy': typeof BuddyRoute
   '/flashcards': typeof FlashcardsRoute
   '/learn': typeof LearnRoute
   '/mistakes': typeof MistakesRoute
+  '/planner': typeof PlannerRoute
   '/quiz': typeof QuizRoute
+  '/readiness': typeof ReadinessRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/flashcards' | '/learn' | '/mistakes' | '/quiz'
+  fullPaths:
+    | '/'
+    | '/buddy'
+    | '/flashcards'
+    | '/learn'
+    | '/mistakes'
+    | '/planner'
+    | '/quiz'
+    | '/readiness'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/flashcards' | '/learn' | '/mistakes' | '/quiz'
-  id: '__root__' | '/' | '/flashcards' | '/learn' | '/mistakes' | '/quiz'
+  to:
+    | '/'
+    | '/buddy'
+    | '/flashcards'
+    | '/learn'
+    | '/mistakes'
+    | '/planner'
+    | '/quiz'
+    | '/readiness'
+    | '/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/buddy'
+    | '/flashcards'
+    | '/learn'
+    | '/mistakes'
+    | '/planner'
+    | '/quiz'
+    | '/readiness'
+    | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BuddyRoute: typeof BuddyRoute
   FlashcardsRoute: typeof FlashcardsRoute
   LearnRoute: typeof LearnRoute
   MistakesRoute: typeof MistakesRoute
+  PlannerRoute: typeof PlannerRoute
   QuizRoute: typeof QuizRoute
+  ReadinessRoute: typeof ReadinessRoute
+  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -86,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buddy': {
+      id: '/buddy'
+      path: '/buddy'
+      fullPath: '/buddy'
+      preLoaderRoute: typeof BuddyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/flashcards': {
@@ -109,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MistakesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/planner': {
+      id: '/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof PlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/quiz': {
       id: '/quiz'
       path: '/quiz'
@@ -116,15 +198,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/readiness': {
+      id: '/readiness'
+      path: '/readiness'
+      fullPath: '/readiness'
+      preLoaderRoute: typeof ReadinessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BuddyRoute: BuddyRoute,
   FlashcardsRoute: FlashcardsRoute,
   LearnRoute: LearnRoute,
   MistakesRoute: MistakesRoute,
+  PlannerRoute: PlannerRoute,
   QuizRoute: QuizRoute,
+  ReadinessRoute: ReadinessRoute,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
