@@ -12,13 +12,13 @@ import { pageHead } from "@/lib/seo";
 type Search = { topic?: string; category?: Category; mode?: "weak"; exclude?: string; start?: boolean };
 
 export const Route = createFileRoute("/quiz")({
-  validateSearch: (s: Record<string, unknown>): Search => ({
+  validateSearch: (raw: Record<string, unknown>): Search => { const s = raw as { topic?: unknown; category?: unknown; mode?: unknown; q?: unknown; exclude?: unknown; start?: unknown }; return {
     topic: typeof s.topic === "string" ? s.topic : undefined,
     category: ["concepts", "architecture", "management"].includes(s.category as string) ? (s.category as Category) : undefined,
     mode: s.mode === "weak" ? "weak" : undefined,
     exclude: typeof s.exclude === "string" ? s.exclude : undefined,
     start: s.start === true || s.start === "true" ? true : undefined,
-  }),
+  }; },
   head: () => pageHead("Practice Quiz", "Original AZ-900 practice questions with instant feedback and clear explanations."),
   component: QuizPage,
 });

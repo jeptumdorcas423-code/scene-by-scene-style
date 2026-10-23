@@ -13,11 +13,11 @@ import { pageHead } from "@/lib/seo";
 type Search = { topic?: string; category?: Category; mode?: "difficult" };
 
 export const Route = createFileRoute("/flashcards")({
-  validateSearch: (s: Record<string, unknown>): Search => ({
+  validateSearch: (raw: Record<string, unknown>): Search => { const s = raw as { topic?: unknown; category?: unknown; mode?: unknown; q?: unknown; exclude?: unknown; start?: unknown }; return {
     topic: typeof s.topic === "string" ? s.topic : undefined,
     category: ["concepts", "architecture", "management"].includes(s.category as string) ? (s.category as Category) : undefined,
     mode: s.mode === "difficult" ? "difficult" : undefined,
-  }),
+  }; },
   head: () => pageHead("Flashcards", "Flip through original Azure flashcards, mark what you know, and focus on difficult cards."),
   component: Flashcards,
 });
