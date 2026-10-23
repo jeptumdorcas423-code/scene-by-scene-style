@@ -9,11 +9,11 @@ import { pageHead } from "@/lib/seo";
 type Search = { topic?: string; category?: Category; q?: string };
 
 export const Route = createFileRoute("/learn")({
-  validateSearch: (s: Record<string, unknown>): Search => ({
+  validateSearch: (raw: Record<string, unknown>): Search => { const s = raw as { topic?: unknown; category?: unknown; mode?: unknown; q?: unknown; exclude?: unknown; start?: unknown }; return {
     topic: typeof s.topic === "string" ? s.topic : undefined,
     category: ["concepts", "architecture", "management"].includes(s.category as string) ? (s.category as Category) : undefined,
     q: typeof s.q === "string" ? s.q : undefined,
-  }),
+  }; },
   head: () => pageHead("Learn", "A beginner-friendly Azure learning library covering cloud concepts, architecture, services, management and governance."),
   component: Learn,
 });
